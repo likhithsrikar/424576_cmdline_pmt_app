@@ -7,12 +7,12 @@ public class TransactionDetails {
     private Timestamp txnDateTime;
     private int sourceId;
     private int targetId;
-    private SourceType sourceType; // Relationship with SourceType enum
-    private SourceType destType;   // Relationship with SourceType enum
+    private SourceType sourceType; 
+    private SourceType destType;  
     private double txnAmount;
-    private int userId; // Relationship with UserDetails
+    private int userId; 
 
-    // Constructor
+    
     public TransactionDetails(int txnId, Timestamp txnDateTime, int sourceId, int targetId, SourceType sourceType, SourceType destType, double txnAmount, int userId) {
         this.txnId = txnId;
         this.txnDateTime = txnDateTime;
@@ -24,7 +24,7 @@ public class TransactionDetails {
         this.userId = userId;
     }
 
-    // Getters and Setters
+    
     public int getTxnId() {
         return txnId;
     }
