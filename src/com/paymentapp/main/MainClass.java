@@ -1,40 +1,42 @@
 package com.paymentapp.main;
 
+import java.util.Scanner;
+
 import com.paymentapp.actions.BankAccActions;
 import com.paymentapp.actions.UserActions;
-import com.paymentapp.admin.Admin;
+import com.paymentapp.actions.WalletAccActions;
 import com.paymentapp.appdata.AppData;
 import com.paymentapp.user.UserDetails;
-import java.util.Scanner;
 
 public class MainClass {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in); 
         AppData appData = new AppData(); 
-        UserActions userActions = new UserActions(appData.getAllUsers());
-        Admin admin = new Admin(appData); 
+        UserActions userActions = new UserActions(appData.getAllUsers()); 
+
         while (true) {
             System.out.println("\n--- Welcome to Payment App ---");
             System.out.println("1. User");
             System.out.println("2. Admin");
             System.out.println("3. Exit");
             System.out.print("Enter your choice: ");
-            int role = scanner.nextInt();
+            int roleChoice = scanner.nextInt();
             scanner.nextLine(); 
-            switch (role) {
+
+            switch (roleChoice) {
                 case 1:
-                                                  
+                    
                     userFlow(scanner, userActions, appData);
                     break;
 
                 case 2:
-                    
-                    adminFlow(scanner, admin);
+                   
+                    adminFlow(scanner, appData);
                     break;
 
                 case 3:
                     
-                    System.out.println("Exiting the application.");
+                    System.out.println("Exiting the application. Goodbye!");
                     scanner.close();
                     return;
 
@@ -44,7 +46,7 @@ public class MainClass {
         }
     }
 
-    
+   
     private static void userFlow(Scanner scanner, UserActions userActions, AppData appData) {
         while (true) {
             System.out.println("\n--- User Menu ---");
@@ -54,10 +56,9 @@ public class MainClass {
             System.out.print("Enter your choice: ");
             int userChoice = scanner.nextInt();
             scanner.nextLine(); 
-
             switch (userChoice) {
                 case 1:
-                    
+                   
                     System.out.print("Enter username: ");
                     String userName = scanner.nextLine();
                     System.out.print("Enter password: ");
@@ -85,8 +86,9 @@ public class MainClass {
                     if (loggedInUser != null) {
                         System.out.println("Login successful! Welcome, " + loggedInUser.getUserName());
 
-                       
+                        
                         BankAccActions bankAccActions = new BankAccActions(loggedInUser);
+                        WalletAccActions walletAccActions = new WalletAccActions(loggedInUser);
 
                         
                         while (true) {
@@ -96,7 +98,8 @@ public class MainClass {
                             System.out.println("3. Go Back");
                             System.out.print("Enter your choice: ");
                             int bankChoice = scanner.nextInt();
-                            scanner.nextLine(); 
+                            scanner.nextLine();
+
                             switch (bankChoice) {
                                 case 1:
                                    
@@ -107,7 +110,7 @@ public class MainClass {
                                     break;
 
                                 case 2:
-                                   
+                                    
                                     System.out.print("Enter Bank Account ID: ");
                                     int statusAccountId = scanner.nextInt();
                                     scanner.nextLine(); 
@@ -124,7 +127,7 @@ public class MainClass {
                             }
 
                             if (bankChoice == 3) {
-                                break; 
+                                break;
                             }
                         }
                     }
@@ -141,8 +144,8 @@ public class MainClass {
         }
     }
 
-    
-    private static void adminFlow(Scanner scanner, Admin admin) {
+   
+    private static void adminFlow(Scanner scanner, AppData appData) {
         while (true) {
             System.out.println("\n--- Admin Menu ---");
             System.out.println("1. Display All Users");
@@ -154,11 +157,11 @@ public class MainClass {
             switch (adminChoice) {
                 case 1:
                     
-                    admin.displayAllUsers();
+                    appData.getAllUsers();
                     break;
 
                 case 2:
-                   
+                    
                     System.out.println("Returning to Main Menu...");
                     return;
 
