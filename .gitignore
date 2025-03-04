@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ignore Windows directories
 AppData/
 Application Data/
@@ -21,3 +22,9 @@ tmp/
 temp/
 .DS_Store
 /bin/
+=======
+#.class
+.project
+.classpath
+.settings
+>>>>>>> origin/master
